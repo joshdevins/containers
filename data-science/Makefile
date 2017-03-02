@@ -8,8 +8,8 @@ build:
 
 .PHONY: test
 test:
-	docker run $(NAME) ./bin/test.sh
-	docker tag --force=true $(NAME) $(NAME):latest
+	./bin/run.sh ./bin/test.sh
+	docker tag $(NAME) $(NAME):latest
 
 .PHONY: clean
 clean:

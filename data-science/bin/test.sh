@@ -3,14 +3,14 @@
 set -e
 
 # check for installed binaries
-for binary in zip make python
+for binary in make python
 do
   which $binary 1> /dev/null || (echo [FAIL] $binary not found && exit 1)
   echo [PASS] $binary found
 done
 
 # check python
-python -c "print 'Ameisenscheiße'" 1> /dev/null || (echo [FAIL] python not working && exit 1)
+python -c "print('Ameisenscheiße')" 1> /dev/null || (echo [FAIL] python not working && exit 1)
 echo [PASS] python is working
 
 # check numpy

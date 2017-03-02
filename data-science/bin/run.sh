@@ -5,7 +5,7 @@ set -eu
 WORKDIR="$(pwd -P)"
 
 usage() {
-  echo "Launches a notebook, from the provided working directory (optional)."
+  echo "Runs an arbitrary command in the container, from the provided working directory (optional)."
   echo
   echo "Usage: $0 [options]"
   echo
@@ -42,11 +42,18 @@ done
 
 : ${WORKDIR:?}
 
-# launches the default command which is the Jupyter notebook
+if [[ -z "$@" ]]
+then
+  echo "[ERROR] No command provided"
+  echo
+  usage
+  exit 1
+fi
+
 docker run \
-  -it \
   --rm \
-  -p 8181:8888 \
-  -v $WORKDIR:/home/jovyan/work:rw \
-  joshdevins/data-science \
-  start-notebook.sh --NotebookApp.token=''
+  -v $WORKDIR:$WORKDIR \
+  -w $WORKDIR \
+  -e HOME=$WORKDIR \
+  joshdevins/data-science:latest \
+  start.sh $@
