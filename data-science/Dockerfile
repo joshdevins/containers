@@ -15,8 +15,16 @@ MAINTAINER Josh Devins <hi@joshdevins.com>
 #  - matplotlib
 #  - seaborn
 
+# conda forge
 RUN conda install -y \
-  nose \
   blaze \
-  pystan \
-  plotly
+  nose \
+  plotly \
+  pystan
+
+# conda cloud
+RUN conda install -y -c avishapiro cufflinks=0.8.2
+
+# load matplotlib font caches
+# see: https://github.com/matplotlib/matplotlib/issues/5836
+RUN python -c "import matplotlib.pyplot"
