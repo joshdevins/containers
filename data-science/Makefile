@@ -1,6 +1,10 @@
 NAME = joshdevins/data-science
 
-all: build test
+all: clean build test
+
+.PHONY: clean
+clean:
+	@echo "Nothing to clean!"
 
 .PHONY: build
 build:
@@ -10,7 +14,3 @@ build:
 test:
 	./bin/run.sh ./bin/test.sh
 	docker tag $(NAME) $(NAME):latest
-
-.PHONY: clean
-clean:
-	echo "Nothing to clean!"
